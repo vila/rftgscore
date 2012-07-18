@@ -12,3 +12,8 @@
 356852;  0;       4;              0;    6;     0;      4;                 0; GALACTIC IMPERIUM
 341096;  5;       3;              1;    1;     1;      0;                 0; REBEL FUEL CACHE
 356851;  4;       3;              1;    2;     1;     48;                 0; REBEL MINERS
+# id; type; subtype; (bool)military; cost; value; powers; increase_military; name; 
+354518;  0;       1;              0;    6;     0;      4;                 0; ALIEN TECH INSTITUTE
+357387;  8;       1;              1;    6;     4;     36;                 3; LOST ALIEN BATTLE FLEET
+357607;  9;       1;              1;    5;     3;      4;                 2; LOST ALIEN WARSHIP
+340487;  1;       1;              0;    3;     3;     36;                 0; ALIEN ROSETTA STONE WORLD

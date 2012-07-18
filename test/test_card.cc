@@ -71,3 +71,29 @@ TEST(Card, SixDevGalacticImperium) {
     tableau.push_back(db.find_by_name("Star Nomad Lair"));
     ASSERT_EQ(5, c.score(tableau));
 }
+
+
+TEST(Card, SixDevAlienTechInstitute) {
+  CardDatabase db;
+    db.load_cards("test/assets/six_dev_db.csv");
+
+    Card c = db.find_by_name("Alien Tech Institute");
+
+    vector<Card> tableau;
+    tableau.push_back(c);
+    ASSERT_EQ(2, c.score(tableau));
+
+    tableau.push_back(db.find_by_name("Lost Alien Battle Fleet"));
+    ASSERT_EQ(5, c.score(tableau));
+
+    tableau.push_back(db.find_by_name("Lost Alien Warship"));
+    ASSERT_EQ(7, c.score(tableau));
+
+    tableau.push_back(db.find_by_name("Alien Rosetta Stone World"));
+    ASSERT_EQ(9, c.score(tableau));
+    
+    tableau.push_back(db.find_by_name("Artist Colony"));
+    ASSERT_EQ(9, c.score(tableau));
+}
+
+// TODO test rest of six devs

@@ -136,13 +136,113 @@ static int score_galactic_imperium(const vector<Card> &tableau) {
 }
 
 
-static int score_alien_tech_institute(const vector<Card> &tableau) { return 0; }
-static int score_galactic_federation(const vector<Card> &tableau)  { return 0; }
-static int score_galactic_renaissance(const vector<Card> &tableau)  { return 0; }
-static int score_galactic_survey_seti(const vector<Card> &tableau)  { return 0; }
-static int score_merchant_guild(const vector<Card> &tableau)  { return 0; }
-static int score_mining_league(const vector<Card> &tableau)  { return 0; }
-static int score_new_economy(const vector<Card> &tableau)  { return 0; }
-static int score_new_galactic_order(const vector<Card> &tableau)  { return 0; }
-static int score_pan_galactic_league(const vector<Card> &tableau)  { return 0; }
-static int score_trade_league(const vector<Card> &tableau)  { return 0; }
+static int score_alien_tech_institute(const vector<Card> &tableau) {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->type == Card::CardType::PLANET_ALIEN)
+            score += 3;
+        else if(it->type == Card::CardType::PLANET_ALIEN_WINDFALL)
+            score += 2;
+        else if(it->sub_type == Card::CardSubType::ALIEN)
+            score += 2;
+    }
+    return score;
+}
+
+static int score_galactic_federation(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->type == Card::CardType::DEVELOPMENT)
+            score += (it->cost == 6) ? 2 : 1;
+    }
+    return score;
+}
+
+static int score_galactic_renaissance(const vector<Card> &tableau)  {
+    int score = 0;
+    // TODO add warning for the vp chip bonus not included in score
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        // Research Lab / Artist Colony / Galactic Trendsetters
+        if(it->id == 340449 || it->id == 356855 || it->id == 341379)
+            score += (it->cost == 6) ? 2 : 1;
+    }
+    return score;
+}
+
+static int score_galactic_survey_seti(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->powers & Card::POWER_EXPLORE)
+            score += (it->type == Card::CardType::DEVELOPMENT) ? 1 : 2;
+        else if(it->type != Card::CardType::DEVELOPMENT)
+            score += 1; // other world
+    }
+    return score;
+}
+
+static int score_merchant_guild(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->type == Card::CardType::PLANET_NOVELTY ||
+           it->type == Card::CardType::PLANET_RARE ||
+           it->type == Card::CardType::PLANET_GENE ||
+           it->type == Card::CardType::PLANET_ALIEN)
+            score += 2;
+    }
+    return score;
+}
+
+static int score_mining_league(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        // Mining Robots / Mining Conglomerate
+        if(it->id == 354961 || it->id == 340490)
+            score += 2;
+        else if(it->type == Card::CardType::PLANET_RARE_WINDFALL)
+            score += 1;
+        else if(it->type == Card::CardType::PLANET_RARE)
+            score += 2;
+    }
+    return score;
+}
+
+static int score_new_economy(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->powers & Card::POWER_CONSUME)
+            score += (it->type == Card::CardType::DEVELOPMENT) ? 2 : 1;
+    }
+    return score;
+}
+
+static int score_new_galactic_order(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        score += it->increase_military;
+    }
+    return score;
+}
+
+static int score_pan_galactic_league(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        // Contact Specialist
+        if(it->id == 340758)
+            score += 3;
+        else if(it->type == Card::CardType::PLANET_GENE ||
+                it->type == Card::CardType::PLANET_GENE_WINDFALL)
+            score += 2;
+        else if(it->type != Card::CardType::DEVELOPMENT && it->military)
+            score += 1;
+    }
+    return score;
+}
+
+static int score_trade_league(const vector<Card> &tableau)  {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->powers & Card::POWER_TRADE)
+            score += (it->type == Card::CardType::DEVELOPMENT) ? 2 : 1;
+    }
+    return score;
+}
