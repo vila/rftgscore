@@ -1,0 +1,14 @@
+# id; type; subtype; (bool)military; cost; value; powers; increase_military; name; 
+341705;  0;       0;              0;    2;     1;      4;                 0; COLONY SHIP
+354516;  0;       0;              0;    5;     3;     48;                 0; CONSUMER MARKETS
+340462;  2;       0;              0;    2;     1;     48;                 0; EARTH'S LOST COLONY
+340439;  1;       0;              0;    2;     1;     20;                 1; EPSILON ERIDANI
+357620;  3;       0;              1;    2;     1;      4;                 1; FORMER PENAL COLONY
+353882;  7;       3;              1;    3;     2;      4;                 1; REBEL WARRIOR RACE
+356848;  0;       0;              0;    6;     0;     48;                 0; FREE TRADE ASSOCIATION
+356855;  2;       0;              0;    1;     1;     32;                 0; ARTIST COLONY
+353130;  3;       0;              1;    1;     1;      9;                 0; STAR NOMAD LAIR
+357384;  1;       0;              0;    1;     1;     48;                 0; EXPANDING COLONY
+356852;  0;       4;              0;    6;     0;      4;                 0; GALACTIC IMPERIUM
+341096;  5;       3;              1;    1;     1;      0;                 0; REBEL FUEL CACHE
+356851;  4;       3;              1;    2;     1;     48;                 0; REBEL MINERS

@@ -1,0 +1,7 @@
+* Create directories:
+          build/
+          build/test/
+          build/gtest/
+          lib/
+* Symlink gtest/ to gtest source, tested with v1.6.0
+* Build with 'scons'
