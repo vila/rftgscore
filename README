@@ -3,5 +3,11 @@
           build/test/
           build/gtest/
           lib/
+          data/(base|tgs|rvi|bow)
 * Symlink gtest/ to gtest source, tested with v1.6.0
+* Perhaps modify the SConstruct file if opencv is not found by default when linking
 * Build with 'scons'
+* If you wish to create the card feature database, extract the card images
+  into the folder assets/ and make sure they are sorted according to the expansion
+  in assets/base, assets/tgs, ...
+  Then run ./rftgscore features to generate the database into data/*

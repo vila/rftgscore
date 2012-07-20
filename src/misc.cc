@@ -5,6 +5,8 @@
 #include <vector>
 #include <sstream>
 
+#include <dirent.h>
+
 using namespace std;
 
 // helper, splits a string on delim into vector
@@ -25,3 +27,23 @@ string trim(string str) {
     return str;
 }
 
+vector<string> list_directory(const string& path) {
+    vector<string> ret;
+    DIR *dir = opendir(path.c_str());
+    
+    dirent *file;
+    while((file = readdir(dir)) != NULL) {
+        string filename(file->d_name);
+
+        if(filename != "." && filename != "..")
+            ret.push_back(filename);
+    }
+    return ret;
+}
+
+// helper, int to string
+string itos(int i) {
+    stringstream ss;
+    ss << i;
+    return ss.str();
+}

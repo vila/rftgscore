@@ -30,11 +30,12 @@ public:
     } type;
 
     enum CardSubType {
-        NONE     = 0,
-        ALIEN    = 1,
-        UPLIFT   = 2,
-        REBEL    = 3,
-        IMPERIUM = 4
+        NONE         = 0,
+        ALIEN        = 1,
+        UPLIFT       = 2,
+        REBEL        = 3,
+        IMPERIUM     = 4,
+        TERRAFORMING = 5
     } sub_type;
 
     // If the planet is military (only used when type > 0)

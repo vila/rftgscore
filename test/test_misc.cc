@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 using namespace std;
 
 TEST(split_line, EmptyString) {
@@ -46,3 +48,8 @@ TEST(trim, PrePostSpaces) {
     ASSERT_EQ("Some String", trim(" Some String     "));
 }
 
+TEST(list_directory, NotEmpty) {
+    // not sure how to test this function
+    vector<string> files = list_directory(".");
+    ASSERT_NE(0, files.size());
+}

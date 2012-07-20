@@ -57,7 +57,7 @@ int CardDatabase::load_cards(const string& filename) {
             std::cerr << "Corrupt database!\n";
             return -1;
         }
-         
+        
         card.id = std::stoi(fields[0]);
         card.type = static_cast<Card::CardType>(std::stoi(fields[1]));
         card.sub_type =  static_cast<Card::CardSubType>(std::stoi(fields[2]));

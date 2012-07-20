@@ -3,7 +3,13 @@ VariantDir('build', 'src', duplicate=0)
 VariantDir('build/test', 'test', duplicate=0)
 VariantDir('build/gtest', 'gtest/src', duplicate=0)
 
-env = Environment(CCFLAGS = '-Wall -std=c++0x -O2')
+opencv_libs = ['opencv_core', 'opencv_imgproc', 'opencv_calib3d',
+               'opencv_video', 'opencv_features2d', 'opencv_ml',
+               'opencv_highgui', 'opencv_objdetect', 'opencv_contrib',
+               'opencv_legacy', 'opencv_flann']
+
+env = Environment(CCFLAGS = '-Wall -std=c++0x -O2',
+                  LIBS = opencv_libs)
 env.Program('rftgscore', source = Glob('build/*.cc'))
 
 
@@ -21,7 +27,7 @@ test_sources = filter(lambda x: x.rstr() != 'build/main.o',
 
 test_env.Program('test_rftgscore',
                  source = test_sources,
-                 LIBS = ['gtest_main'],
+                 LIBS = ['gtest_main'] + opencv_libs,
                  LIBPATH = 'lib/',
                  LINKFLAGS = '-pthread',
                  CPPPATH = ['gtest/include/','src/'])
