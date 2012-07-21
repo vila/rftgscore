@@ -9,6 +9,7 @@
 using namespace rftgscore;
 using namespace std;
 
+// base 6dev
 static int score_free_trade_association(const vector<Card> &tableau);
 static int score_galactic_imperium(const vector<Card> &tableau);
 static int score_alien_tech_institute(const vector<Card> &tableau);
@@ -21,6 +22,11 @@ static int score_new_economy(const vector<Card> &tableau);
 static int score_new_galactic_order(const vector<Card> &tableau);
 static int score_pan_galactic_league(const vector<Card> &tableau);
 static int score_trade_league(const vector<Card> &tableau);
+
+// tgs 6dev
+static int score_galactic_genome_project(const vector<Card> &tableau);
+static int score_imperium_lords(const vector<Card> &tableau);
+static int score_terraforming_guild(const vector<Card> &tableau);
 
 
 
@@ -39,6 +45,7 @@ int Card::score(const vector<Card> &tableau) {
 
     // TODO: handle all 6-developments
     switch(id) {
+        // base
     case 356848: score = score_free_trade_association(tableau); break;
     case 356852: score = score_galactic_imperium(tableau); break;
     case 354518: score = score_alien_tech_institute(tableau); break;
@@ -51,6 +58,12 @@ int Card::score(const vector<Card> &tableau) {
     case 340904: score = score_new_galactic_order(tableau); break;
     case 356846: score = score_pan_galactic_league(tableau); break;
     case 340448: score = score_trade_league(tableau); break;
+
+        // tgs
+    case 451438: score = score_galactic_genome_project(tableau); break;
+    case 451441: score = score_imperium_lords(tableau); break;
+    case 451435: score = score_terraforming_guild(tableau); break;
+
     }
 
     return score;
@@ -247,4 +260,44 @@ static int score_trade_league(const vector<Card> &tableau)  {
             score += (it->type == Card::CardType::DEVELOPMENT) ? 2 : 1;
     }
     return score;
+}
+
+// tgs 6devs
+
+static int score_galactic_genome_project(const vector<Card> &tableau) {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        // Genetics Lab
+        if(it->id == 340760)
+            score += 3;
+
+        if(it->type == Card::CardType::PLANET_GENE ||
+           it->type == Card::CardType::PLANET_GENE_WINDFALL)
+            score += 2;
+    }
+    return score;
+}
+static int score_imperium_lords(const vector<Card> &tableau) {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->sub_type == Card::CardSubType::IMPERIUM)
+            score += 2;
+        else if(it->type != Card::CardType::DEVELOPMENT && it->military)
+            score += 1;
+    }
+    return score;    
+}
+
+static int score_terraforming_guild(const vector<Card> &tableau) {
+    int score = 0;
+    for(auto it = begin(tableau); it != end(tableau); ++it) {
+        if(it->type == Card::CardType::PLANET_NOVELTY_WINDFALL ||
+           it->type == Card::CardType::PLANET_RARE_WINDFALL ||
+           it->type == Card::CardType::PLANET_GENE_WINDFALL ||
+           it->type == Card::CardType::PLANET_ALIEN_WINDFALL)
+            score += 2;
+        else if(it->sub_type == Card::CardSubType::TERRAFORMING)
+            score += 2;
+    }
+    return score;    
 }
