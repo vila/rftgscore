@@ -1,0 +1,21 @@
+# id; type; subtype; (bool)military; cost; value; powers; increase_military; name;
+451444;  0;       0;              0;    3;     2;      4;                 0; IMPROVED LOGISTICS
+451433;  0;       0;              0;    1;     0;      4;                 1; SPACE MERCENARIES
+451464;  9;       1;              0;    3;     1;     16;                 0; ALIEN TOY SHOP
+451465;  7;       0;              0;    2;     1;      0;                 0; ANCIENT RACE
+451449;  1;       2;              1;    3;     2;     25;                 0; CLANDESTINE UPLIFT LAB
+451448;  8;       1;              1;    3;     2;     32;                 0; DAMAGED ALIEN FACTORY
+451452;  1;       1;              0;    1;     2;      5;                 0; DESERTED ALIEN WORLD
+451427;  1;       0;              0;    1;    -1;      5;                 0; DOOMED WORLD
+451457;  3;       0;              0;    3;     2;     24;                 0; GALACTIC BAZAAR
+451458;  2;       0;              0;    5;     3;     48;                 0; GALACTIC STUDIO
+451422;  1;       0;              0;    1;     1;     16;                 0; GAMBLING WORLD
+451460;  6;       0;              1;    3;     2;     32;                 0; HIVE WORLD
+451430;  1;       3;              1;    4;     4;     16;                 0; REBEL COLONY
+451454;  3;       3;              1;    1;     1;     32;                 0; REBEL SYMPATHIZERS
+451424;  1;       0;              0;    2;     1;      5;                 1; SEPARATIST COLONY
+451455;  5;       0;              1;    1;     1;     16;                 1; SMUGGLING LAIR
+451456;  4;       0;              0;    2;     1;     32;                 0; VOLCANIC WORLD
+451438;  0;       0;              0;    6;     0;     16;                 0; GALACTIC GENOME PROJECT
+451441;  0;       4;              0;    6;     0;     32;                 0; IMPERIUM LORDS
+451435;  0;       5;              0;    6;     0;     36;                 0; TERRAFORMING GUILD
