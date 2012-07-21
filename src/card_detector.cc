@@ -19,7 +19,7 @@ CardDetector::CardDetector() {
 }
 
 
-vector<int> CardDetector::detect_cards(cv::Mat image, const string& feature_path) {
+vector<int> CardDetector::detect_cards(cv::Mat image, const vector<string>& feature_paths) {
     // TODO change feature_path to a vector of paths to allow for expansions
    
     cv::cvtColor(image, image, CV_BGR2GRAY);
@@ -30,11 +30,11 @@ vector<int> CardDetector::detect_cards(cv::Mat image, const string& feature_path
     detector->detect(image, keypoints);
 
     /*
-    cv::Mat tmp;
-    cv::drawKeypoints(image, keypoints, tmp);
-    cv::namedWindow("debug");
-    cv::imshow("debug", tmp);
-    cv::waitKey(0);
+      cv::Mat tmp;
+      cv::drawKeypoints(image, keypoints, tmp);
+      cv::namedWindow("debug");
+      cv::imshow("debug", tmp);
+      cv::waitKey(0);
     */
 
     cout << "Found " << keypoints.size() << " keypoints.\n";
@@ -45,61 +45,46 @@ vector<int> CardDetector::detect_cards(cv::Mat image, const string& feature_path
 
     //cv::FlannBasedMatcher matcher;
     cv::BruteForceMatcher<cv::L2<float> > matcher;
-
-    vector<string> files = list_directory(feature_path);
     vector<int> found_cards;
 
-    for(auto it = begin(files); it != end(files); ++it) {
-        // parse card id from filename
-        // TODO move to misc.hh
+    for(auto path = begin(feature_paths); path != end(feature_paths); ++path) {
+        
+        vector<string> files = list_directory(*path);
+
+        for(auto it = begin(files); it != end(files); ++it) {
+            // parse card id from filename
+            // TODO move to misc.hh
        
-        cv::FileStorage fs(feature_path + "/" + *it, cv::FileStorage::READ);
-        if(!fs.isOpened()) {
-            cout << "Unable to open file " << *it << "\n";
-            continue;
-        }
-
-        int id;
-        cv::Mat card_features;
-        fs["id"] >> id;
-        fs["descriptors"] >> card_features;
-
-        // we find the two best matches for each descriptor
-        vector<vector<cv::DMatch>> matches;
-        matcher.knnMatch(card_features, features, matches, 2);
-
-       
-        int num_matches = 0;
-        for(auto it = begin(matches); it != end(matches); ++it) {
-            // check if it is a good match
-            if((*it)[0].distance < 0.6 * (*it)[1].distance && (*it)[0].distance < 0.15) {
-                num_matches++;
+            cv::FileStorage fs(*path + "/" + *it, cv::FileStorage::READ);
+            if(!fs.isOpened()) {
+                cout << "Unable to open file " << *it << "\n";
+                continue;
             }
+
+            int id;
+            cv::Mat card_features;
+            fs["id"] >> id;
+            fs["descriptors"] >> card_features;
+
+            // we find the two best matches for each descriptor
+            vector<vector<cv::DMatch>> matches;
+            matcher.knnMatch(card_features, features, matches, 2);
+
+       
+            int num_matches = 0;
+            for(auto it = begin(matches); it != end(matches); ++it) {
+                // check if it is a good match
+                if((*it)[0].distance < 0.6 * (*it)[1].distance && (*it)[0].distance < 0.15) {
+                    num_matches++;
+                }
+            }
+
+            cout << ":" << id << " " << num_matches << "\n";
+  
+            if(num_matches >= 5)
+                found_cards.push_back(id);
         }
-
-        /*
-        // DEBUG test1.jpg
-        switch(id) {
-        case 340994:
-        case 341378:
-        case 340442:
-        case 357388:
-        case 340440:
-        case 356848:
-        case 340443:
-        case 341092:
-        case 340437:
-        case 340911:
-            cout << "---> ";
-        }
-
-
-        cout << ":" << id << " " << num_matches << "\n";
-        */        
-        if(num_matches >= 5)
-            found_cards.push_back(id);
     }
-
     return found_cards;
 }
 
@@ -155,11 +140,11 @@ void CardDetector::generate_feature_database(const std::string& in_path,
         }
 
         /*
-        cv::namedWindow("debug");
-        cv::Mat tmp;
-        cv::drawKeypoints(card_image, keypoints, tmp);
-        cv::imshow("debug", tmp);
-        cv::waitKey(1000);
+          cv::namedWindow("debug");
+          cv::Mat tmp;
+          cv::drawKeypoints(card_image, keypoints, tmp);
+          cv::imshow("debug", tmp);
+          cv::waitKey(1000);
         */
 
 

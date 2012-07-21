@@ -12,7 +12,7 @@ namespace rftgscore {
 class CardDetector {
 public:
     CardDetector();
-    std::vector<int> detect_cards(cv::Mat image, const std::string& feature_path);
+    std::vector<int> detect_cards(cv::Mat image, const std::vector<std::string>& feature_paths);
     void generate_feature_database(const std::string& in_path, const std::string& out_path);
 
 private:

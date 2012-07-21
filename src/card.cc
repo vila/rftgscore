@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iomanip>
 #include <algorithm>
 
 using namespace rftgscore;
@@ -55,11 +56,11 @@ int Card::score(const vector<Card> &tableau) {
     return score;
 }
 
-std::string Card::to_string() {
+string Card::to_string() {
     stringstream ss;
 
-    ss << id << ": \"" << name;
-    ss << "\"  (" << cost << "/" << value << ") ";
+    ss << id << ": " << left << setw(30) << name;
+    ss << " (" << cost << "/" << value << ") ";
 
     if(military) {
         ss << "Mil. ";
@@ -84,6 +85,7 @@ std::string Card::to_string() {
     case CardSubType::UPLIFT: ss << " [Uplift] "; break;
     case CardSubType::REBEL: ss << " [Rebel] "; break;
     case CardSubType::IMPERIUM: ss << " [Imperium] "; break;
+    case CardSubType::TERRAFORMING: ss << " [Terraforming] "; break;
     case CardSubType::NONE: break;
     }
 
