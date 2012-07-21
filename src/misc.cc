@@ -47,3 +47,10 @@ string itos(int i) {
     ss << i;
     return ss.str();
 }
+
+// helper, replace string 
+void str_replace(std::string& str, const std::string& what, const std::string& with) {
+    size_t pos = str.find(what);
+    if(pos != string::npos)
+        str.replace(pos, what.size(), with);
+}

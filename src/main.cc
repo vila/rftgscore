@@ -67,9 +67,9 @@ int main(int argc, char** argv) {
     }
 
     cout << "Available commands:\n";
-    cout << left << setw(30) << "  features [exp]";
+    cout << left << setw(25) << "  features [exp]";
     cout << "generates the feature database.\n";
-    cout << left << setw(30) << "  detect [exp] [image]";
+    cout << left << setw(25) << "  detect [exp] [image]";
     cout << "performs card detection and scoring.\n";    
     cout << "Available expansions are:\n";
     cout << "base  1\n";

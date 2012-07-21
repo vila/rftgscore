@@ -17,7 +17,7 @@ public:
 
 private:
     static const int MAX_CARD_FEATURES = 100;
-    static const int MAX_DISTANCE = 40;
+    static const int REQUIRED_MATCHES = 5;
     
 private:
     std::unique_ptr<cv::FeatureDetector> detector;

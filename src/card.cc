@@ -1,4 +1,5 @@
 #include "card.hh"
+#include "misc.hh"
 
 #include <sstream>
 #include <string>
@@ -72,8 +73,30 @@ int Card::score(const vector<Card> &tableau) {
 string Card::to_string() {
     stringstream ss;
 
-    ss << id << ": " << left << setw(30) << name;
+    string tmp = name;
+
+    switch(sub_type) {
+    case CardSubType::ALIEN: str_replace(tmp, "ALIEN", "[ALIEN]"); break;
+    case CardSubType::UPLIFT: str_replace(tmp, "UPLIFT", "[UPLIFT]"); break;
+    case CardSubType::REBEL:  str_replace(tmp, "REBEL", "[REBEL]"); break;
+    case CardSubType::IMPERIUM: str_replace(tmp, "IMPERIUM", "[IMPERIUM]"); break;
+    case CardSubType::TERRAFORMING: str_replace(tmp, "TERRAFORMING", "[TERRAFORMING]"); break;
+    case CardSubType::NONE: break;
+    }
+
+    // name and cost/value
+    ss << id << ": " << left << setw(35) << tmp;
     ss << " (" << cost << "/" << value << ") ";
+
+    // Powers
+    ss << "[";
+    ss << ((powers & POWER_EXPLORE) ? "1" : "-");
+    ss << ((powers & POWER_DEVELOP) ? "2" : "-");
+    ss << ((powers & POWER_SETTLE) ? "3" : "-");
+    ss << ((powers & POWER_TRADE) ? "$" : "-");
+    ss << ((powers & POWER_CONSUME) ? "4" : "-");
+    ss << ((powers & POWER_PRODUCE) ? "5" : "-");
+    ss << "] ";
 
     if(military) {
         ss << "Mil. ";
@@ -91,30 +114,10 @@ string Card::to_string() {
     case CardType::PLANET_ALIEN:             ss << "Planet (Alien)"; break;
     case CardType::PLANET_ALIEN_WINDFALL:    ss << "Planet (Alien/Windfall)"; break;
     }
-        
-
-    switch(sub_type) {
-    case CardSubType::ALIEN: ss << " [Alien] "; break;
-    case CardSubType::UPLIFT: ss << " [Uplift] "; break;
-    case CardSubType::REBEL: ss << " [Rebel] "; break;
-    case CardSubType::IMPERIUM: ss << " [Imperium] "; break;
-    case CardSubType::TERRAFORMING: ss << " [Terraforming] "; break;
-    case CardSubType::NONE: break;
-    }
-
-
-    ss << " [";
-    ss << ((powers & POWER_EXPLORE) ? "1" : "-");
-    ss << ((powers & POWER_DEVELOP) ? "2" : "-");
-    ss << ((powers & POWER_SETTLE) ? "3" : "-");
-    ss << ((powers & POWER_TRADE) ? "$" : "-");
-    ss << ((powers & POWER_CONSUME) ? "4" : "-");
-    ss << ((powers & POWER_PRODUCE) ? "5" : "-");
-    ss << "]";
 
     if(increase_military != 0) {
         ss << ((increase_military > 0) ? " (+" : " (");
-        ss << increase_military << " mil)";
+        ss << increase_military << " mil.)";
     }
 
     return ss.str();
