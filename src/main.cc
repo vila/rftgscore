@@ -8,11 +8,6 @@ using namespace rftgscore;
 
 int main(int argc, char** argv) {
     cout << "rftgscore - by Viktor Larsson\n\n";
-
-    if(argc != 3 || argc != 4) {
-
-    }
-
     
     if(argc == 3 && string(argv[1]) == "features") {
         CardDetector detector;
